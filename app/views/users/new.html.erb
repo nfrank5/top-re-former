@@ -1,0 +1,60 @@
+<!-- 
+  <form action="/users" method='post' accept-charset="UTF-8">
+  <label for="username" >Username:</label>
+  <input type="text" id="username" name="user[username]">
+  <label for="email" >Email:</label>
+  <input type="email" id="email" name="user[email]">
+  <label for="password" >Password:</label>
+  <input type="password" id="password" name="user[password]">
+  <input type="submit" value="Create User">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+</form>
+-->
+<!-- 
+<%= form_tag("/users", method: "post") do %>
+
+  <%= label_tag(:username, "Username:") %>
+  <%= text_field_tag(:username) %>
+
+  <%= label_tag(:email, "Email:") %>
+  <%= email_field_tag(:email) %>
+
+  <%= label_tag(:password, "Password:") %>
+  <%= password_field_tag(:password) %>
+
+
+  <%= submit_tag("Create User") %>
+
+<% end %>
+-->
+
+
+<%= form_with model: @user do |form| %>
+      
+    <% if @user.errors.any? %>
+
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.label(:username, "Your Username:") %>
+  <%= form.text_field(:username, value:'default value') %><br /><br />
+
+  <%= form.label(:email) %>
+  <%= form.email_field(:email, placeholder: "asd@gmail.como") %><br /><br />
+
+  <%= form.label(:password) %>
+  <%= form.password_field(:password) %><br /><br />
+
+
+  <%= form.submit("Create User") %>
+
+<% end %>
+<%= link_to "All users", root_path %>
