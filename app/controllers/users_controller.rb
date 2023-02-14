@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
 
   def index
+    #render plain: "OK"
+    #render html: helpers.tag.strong('Not Found')
+    #render js: "alert('Hello Rails');"
+
     @all_users = User.all 
   end
 
@@ -14,7 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to new_user_path
     else
-      render :new, status: :unprocessable_entity
+      render "new", status: :unprocessable_entity 
     end
   end
 
@@ -35,6 +39,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def show
+    @user = User.find(params[:id])
+    render json: @user
+  end
   private
   def user_params
     params.require(:user).permit(:username, :email, :password)
